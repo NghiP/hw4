@@ -171,7 +171,7 @@ router.route('/reviews/:title')
 router.route('/moviesr')
     .get(//authJwtController.isAuthenticated,
         function (req, res)
-        {if (req.header.reviews = 'true') {
+        {if (req.query.reviews === 'true') {
             movies.aggregate([
                 {
                     $lookup: {
