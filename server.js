@@ -5,7 +5,7 @@ var authJwtController = require('./auth_jwt');
 var User = require('./Users');
 var movies = require('./movies');
 var jwt = require('jsonwebtoken');
-
+var Reviews=require('./Review');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -24,7 +24,7 @@ router.route('/movies')
         });
     });
 
-router.route('/SAVEmovies')
+router.route('/savemovies')
     .post(authJwtController.isAuthenticated, function (req, res) {
         if (!req.body.title || !req.body.yearReleased || !req.body.genre || !req.body.actors && req.body.actors.length) {
             res.json({success: false, msg: 'Pass the Movie Information'});
@@ -52,7 +52,7 @@ router.route('/SAVEmovies')
         }
     });
 
-router.route('/DELETEmovies/:title')
+router.route('/deletemovies/:title')
     .delete(authJwtController.isAuthenticated, function (req, res) {
         movies.findOne({title: req.params.title}, function (err, results) {
             if (results !== null) {
@@ -67,7 +67,7 @@ router.route('/DELETEmovies/:title')
     });
 
 
-router.route('/UPDATEmovies/:title')
+router.route('/updatemovies/:title')
     .put(authJwtController.isAuthenticated, function (req, res) {
         movies.findOne({title: req.params.title}, function (err, results) {
             if (results !== null) {
@@ -114,6 +114,119 @@ router.route('/users')
             res.json(users);
         });
     });
+router.route('/reviews')
+    .get(authJwtController.isAuthenticated, function (req, res) {
+        reviews.find(function (err, reviews) {
+            if (err)
+                res.send(err);
+
+            res.json(reviews);
+        });
+    });
+/*
+router.route('/reviews/:title')
+    .get(//authJwtController.isAuthenticated,
+ function (req, res) {
+        if(req.query.reviews ==='true')
+        {
+            var title=req.params.title;
+            movies.aggregate([
+                {
+                    $match: {Title: title}
+                },
+            {
+                $lookup:
+                    {
+                        from:'reviews',
+                        localField:'title',
+                        foreignField: 'movieTitle',
+                        as:'Reviews'
+
+                    }
+            }
+            ]).exec((err, movies))
+            {
+                if(err) res.json({message:'Failed to get review'});
+                res.json(movies)
+
+            }
+        }
+         else
+        {
+            res.json({message: 'Please send a response with the query parameter true'});
+        }
+        movies.findOne({Title: req.params.title}).exec(function(err, movie1) {
+            if (err) res.send(err);
+            if (movie1 !== null){
+                res.json(movie1);
+            }
+            else{
+                res.json({ message: 'Movie is not found' });
+            }
+
+        });
+
+});
+*/
+router.route('/moviesr')
+    .get(authJwtController.isAuthenticated,
+        function (req, res)
+        {if (req.header.reviews = 'true') {
+            movies.aggregate([
+                {
+                    $lookup: {
+                        from: "reviews",
+                        localField: "title",
+                        foreignField: "movieTitle",
+                        as: 'Review'
+                    }
+                }
+            ], function (err, result) {
+                if (err) {res.send(err);}
+                else res.send({movies: result});
+            })
+        }
+        else {
+            movies.find(function (err, movies) {
+                if (err)
+                    res.send(err);
+
+                res.json(movies);
+            });
+        }
+        });
+
+router.route('/reviewers')
+    .post( authJwtController.isAuthenticated, function (req, res) {
+        if (!req.body.movieTitle || !req.body.reviewer || !req.body.rating || !req.body.quote) {
+            res.json({success: false, msg: 'Please put the movieTitle, reviewer, rating and quote'});
+        }
+
+        else {
+            var title= req.header.title;
+            movies.findOne({title: req.body.movieTitle}).select('title').exec(function (err, movies) {
+                if (err) {return res.send(err);}
+
+                if (movies) {
+                    var newReview = new Reviews(req.body);
+
+                    newReview.save(function (err) {
+                        if (err) {
+                            return res.send(err);
+                        }
+                        res.json({message: 'Review is saved.'});
+
+                    });
+                }
+                else {
+                    res.json({success: false, message: 'Error: Movie title does not exists'});
+                }
+            })
+        }
+
+    });
+
+
 
 router.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password) {
