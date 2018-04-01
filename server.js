@@ -200,7 +200,7 @@ router.route('/reviewers')
     .post( //authJwtController.isAuthenticated,
     function (req, res) {
         if (!req.body.movieTitle || !req.body.reviewer || !req.body.rating || !req.body.quote) {
-            res.json({success: false, msg: 'Review is saved'});
+            res.json({success: true, msg: 'Review is saved'});
         }
 
         else {
