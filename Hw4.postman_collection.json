@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "1f529504-843e-48d5-97f3-71aa1932c6fb",
+		"name": "Hw4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "  https://dry-shelf-57747.herokuapp.com/moviesr",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"movieTitle\": \"taken\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/moviesr",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"moviesr"
+					]
+				},
+				"description": "Getting the movies review "
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/moviesr?reviews=true",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"movieTitle\": \"taken\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/moviesr?reviews=true",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"moviesr"
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Getting the movies review with a query parameter"
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/reviewers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"movieTitle\": \"taken\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/reviewers",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"reviewers"
+					]
+				},
+				"description": "Posting a review to a movie that didn't exist"
+			},
+			"response": []
+		},
+		{
+			"name": "  https://dry-shelf-57747.herokuapp.com/reviews/taken",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"movieTitle\": \"postman\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/reviews/taken",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"reviews",
+						"taken"
+					]
+				},
+				"description": "Invalid request (for a movie not in the database) without the review query parameter"
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"Nghi\",\n\"password\":\"Phan\"\n\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/signup",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				},
+				"description": "Sign up "
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"Nghi\",\n\"password\":\"Phan\"\n\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/signin",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				},
+				"description": "Sign in"
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"Nghi\",\n\"password\":\"i\"\n\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/signin",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				},
+				"description": "Auth sign in failed"
+			},
+			"response": []
+		},
+		{
+			"name": "https://dry-shelf-57747.herokuapp.com/reviewers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"movieTitle\": \"postman\",\n \"reviewer\":\"HELLO\",\n \"rating\":2,\n \"quote\":\"This is a okay movie\"\n\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/reviewers",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"reviewers"
+					]
+				},
+				"description": "Posting review succeeded"
+			},
+			"response": []
+		}
+	]
+}
