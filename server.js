@@ -200,7 +200,7 @@ router.route('/reviewers')
     .post( //authJwtController.isAuthenticated,
     function (req, res) {
         if (!req.body.movieTitle || !req.body.reviewer || !req.body.rating || !req.body.quote) {
-            res.json({success: false, msg: 'Please put the movieTitle, reviewer, rating and quote'});
+            res.json({success: false, msg: 'Please pass in the correct movieTitle, reviewer, rating and quote'});
         }
 
         else {
