@@ -123,51 +123,48 @@ router.route('/reviews')
             res.json(reviews);
         });
     });
-/*
 router.route('/reviews/:title')
-    .get(//authJwtController.isAuthenticated,
+    .get(//authJwtController.isAuthenticated
  function (req, res) {
-        if(req.query.reviews ==='true')
+        if (req.query.reviews === 'true')
         {
-            var title=req.params.title;
+            var title = req.params.title;
             movies.aggregate([
                 {
-                    $match: {Title: title}
-                },
-            {
-                $lookup:
-                    {
-                        from:'reviews',
-                        localField:'title',
-                        foreignField: 'movieTitle',
-                        as:'Reviews'
-
+                    $match: {
+                        Title: title
                     }
-            }
-            ]).exec((err, movies))
-            {
-                if(err) res.json({message:'Failed to get review'});
-                res.json(movies)
+                },
+                {
+                    $lookup:
+                        {
+                            from: 'reviews',
+                            localField: 'Title',
+                            foreignField: 'MovieTitle',
+                            as: 'Reviews'
+                        }
+                }
 
-            }
+            ]),function(err, result){
+                if (err) res.json({message: 'Failed to get review'});
+                else res.send({movies:result});
         }
-         else
-        {
-            res.json({message: 'Please send a response with the query parameter true'});
         }
-        movies.findOne({Title: req.params.title}).exec(function(err, movie1) {
-            if (err) res.send(err);
-            if (movie1 !== null){
-                res.json(movie1);
-            }
-            else{
-                res.json({ message: 'Movie is not found' });
-            }
+        else {
 
-        });
 
-});
-*/
+            movies.findOne({Title: req.params.title}).exec(function (err, movie1) {
+                if (err) res.send(err);
+                if (movie1 !== null) {
+                    res.json(movie1);
+                }
+                else {
+                    res.json({message: 'Movie is not found'});
+                }
+
+            });
+        }
+    });
 router.route('/moviesr')
     .get(//authJwtController.isAuthenticated,
         function (req, res)
