@@ -96,7 +96,7 @@
 					"raw": "{\r\n \"movieTitle\": \"postman\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
 				},
 				"url": {
-					"raw": "https://dry-shelf-57747.herokuapp.com/reviews/taken",
+					"raw": "https://dry-shelf-57747.herokuapp.com/reviews/taken?reviews=true",
 					"protocol": "https",
 					"host": [
 						"dry-shelf-57747",
@@ -106,6 +106,12 @@
 					"path": [
 						"reviews",
 						"taken"
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "true"
+						}
 					]
 				},
 				"description": "Invalid request (for a movie not in the database) without the review query parameter"
@@ -229,6 +235,38 @@
 					]
 				},
 				"description": "Posting review succeeded"
+			},
+			"response": []
+		},
+		{
+			"name": "  https://dry-shelf-57747.herokuapp.com/reviews/taken?reviews=true",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"movieTitle\": \"postman\",\r\n \"reviewer\":\"J\",\r\n \"rating\":4,\r\n \"quote\":\"This is a good movie to watch\"\r\n}"
+				},
+				"url": {
+					"raw": "https://dry-shelf-57747.herokuapp.com/reviews/taken?reviews=true",
+					"protocol": "https",
+					"host": [
+						"dry-shelf-57747",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"reviews",
+						"taken"
+					],
+					"query": [
+						{
+							"key": "reviews",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Valid request (for a movie in the database) with the review query parameter"
 			},
 			"response": []
 		}
