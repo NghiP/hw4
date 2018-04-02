@@ -125,46 +125,38 @@ router.route('/reviews')
     });
 router.route('/reviews/:title')
     .get(//authJwtController.isAuthenticated
- function (req, res) {
-        if (req.query.reviews === 'true')
+        function (req, res) {
+if(req.query.reviews === 'true') {
+    var title = req.params.title;
+    movies.aggregate([
         {
-            var title = req.params.title;
-            movies.aggregate([
-                {
-                    $match: {
-                        Title: title
-                    }
-                },
-                {
-                    $lookup:
-                        {
-                            from: 'reviews',
-                            localField: 'Title',
-                            foreignField: 'MovieTitle',
-                            as: 'Reviews'
-                        }
-                }
-
-            ]),function(err, result){
-                if (err) res.json({message: 'Failed to get review'});
-                else res.send({movies:result});
+            $match: {title: title}
+        },
+        {
+            $lookup:{
+                from: "reviews",
+                localField: "title",
+                foreignField: "movieTitle",
+                as: 'review'
+            }
         }
+    ], function (err, result) {
+        if(err) {res.send(err);}
+        else res.send({movies: result});
+    });
+}else {
+    movies.findOne({title:req.params.title}, function(err, movies) {
+        if (movies !== null) {
+            console.log(movies);
+            res.json(movies);
         }
-        else {
-
-
-            movies.findOne({Title: req.params.title}).exec(function (err, movie1) {
-                if (err) res.send(err);
-                if (movie1 !== null) {
-                    res.json(movie1);
-                }
-                else {
-                    res.json({message: 'Movie is not found'});
-                }
-
-            });
+        else
+        {
+            res.json({message: "Could not find a movie with that title in the database."});
         }
     });
+}
+});
 router.route('/moviesr')
     .get(//authJwtController.isAuthenticated,
         function (req, res)
